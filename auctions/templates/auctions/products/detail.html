@@ -1,0 +1,121 @@
+{% extends "auctions/layout.html" %}
+{% load static %}
+
+{% block body %}
+<div class="header_bottom_right_images">
+
+  <div class="about_wrapper"><h1>{{ active.title|title }} in Detail</h1>
+  </div>
+  <div class="about-group">
+    <div class="about-top">	
+      <div class="grid images_3_of_1">
+        <img src="{{ active.image.url }}" alt=""/>
+      </div>
+      <div class="grid span_2_of_3">
+        <h3>{{ active.title }}</h3>
+        <div class="container" id="bid-talk">
+          <p class="price">Current price: ${{ active.starting_bid }}</p>
+        </div>
+
+        {% if user.is_authenticated %}
+        <form action="" method="POST" id="post-bid-form">
+          {% csrf_token %}
+          <div class="form-group fieldWrapper" id="the_bid">
+
+            {{ bid_form.bid_amount }}
+  
+          </div>
+          <div id="bid-results"></div><!-- errors go here -->
+
+          <button id="bid_button" type="submit" class="btn btn-outline-primary">
+            Make a Bid
+          </button>
+        </form>
+        {% endif %}
+
+        <p>{{ active.description }}</p>
+        <p>Listed by: <strong>{{ active.created_by.username|title }}</strong></p>
+        <p>Category: <strong>{{ active.category }}</strong></p>
+
+        {% if user.is_authenticated %}
+        <p>
+					<!-- <input type="submit" value="Add to Watchlist"> -->
+				</p>
+        {% endif %}
+      </div><div class="clear"></div> 
+
+      <div class="links">
+         <!-- 
+          <ul>
+            <li><a href="#"><img src="{% static '/auctions/images/blog-icon1.png' %}" title="date"><span>june 14, 2013</span></a></li>
+            <li><a href="#"><img src="{% static '/auctions/images/blog-icon2.png' %}" title="Admin"><span>admin</span></a></li>
+            <li><a href="#"><img src="{% static '/auctions/images/blog-icon3.png' %}" title="Comments"><span>No comments</span></a></li>
+            <li><a href="#"><img src="{% static '/auctions/images/blog-icon4.png' %}" title="Lables"><span>View posts</span></a></li>
+            <li><a href="#"><img src="{% static '/auctions/images/blog-icon5.png' %}" title="permalink"><span>permalink</span></a></li>
+          </ul>
+           -->
+      </div>
+
+      <div class="team">
+        <h2>Related Products</h2>
+        {% for similar_prod  in similar_products %}
+        <div class="section group">
+          <div class="grid_1_of_3 images_1_of_3">
+              <img src="{{ similar_prod.image.url }}" alt=""/>
+             <h4><a href="#">{{ similar_prod.title }}</a></h4>
+          </div>
+          <div class="clear"></div> 
+        </div>
+        {% endfor %}
+
+        <div class="leave-comment"><a href="#" name="comment">Leave a Comment</a></div>
+						<div class="comments-area">
+
+              <div class="container">
+                {% for a_comment in all_comments %}
+                <!-- <img src="/w3images/bandmember.jpg" alt="Avatar"> -->
+                <p>
+                  {{ a_comment.body }}
+                  <br/>
+                  <span class="time-right">by: {{ a_comment.user.username|title }}, </span>
+                  <span class="time-right">created on: {{ a_comment.created_on }}</span><br>
+                </p>
+                {% endfor %}
+              </div>
+
+              <div class="container" id="talk"></div><br>
+
+              
+              {% if user.is_authenticated %}
+              <form method="POST" action="" id="post-form">
+                {% csrf_token %}
+                <div class="form-group fieldWrapper" id="the_post">
+        
+                  {{ form.body }}
+        
+                </div>
+                <div id="results"></div><!-- errors go here -->
+        
+                <button id="post_button" type="submit" class="btn btn-outline-primary">
+                  Post Comment
+                </button>
+              </form>
+              {% endif %}
+            </div>
+      </div><!-- close of class="team" -->
+      
+    </div><!-- close of class="about-top" -->
+  </div>
+
+</div><!-- close of class="header_bottom_right_images" -->
+
+
+<!--  break from here  -->
+
+  <!-- <div class="row"> -->
+
+    <!-- <div class="column"></div> -->
+    
+
+    
+{% endblock %}

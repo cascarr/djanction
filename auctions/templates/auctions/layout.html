@@ -1,0 +1,186 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{% block title %}Auctions{% endblock %}</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href='//fonts.googleapis.com/css?family=Playball' rel='stylesheet' type='text/css'> 
+    <link href="{% static '/auctions/css/style.css' %}" rel="stylesheet" type="text/css" media="all" />
+
+  </head>
+  <body>
+
+    <div class="header-bg">
+      <div class="wrap"> 
+        <div class="h-bg">
+          <div class="total"> <!-- insert from here -->
+
+            <div class="header">
+              <div class="box_header_user_menu">
+                <ul class="user_menu">
+                  
+                    <li class="act first">
+                      <!-- <a href="#"> -->
+                        <div class="button-t">
+                          {% if user.is_authenticated %} Signed in as
+                          <strong>{{ user.username }}</strong>
+                          <!-- <span>Shipping &amp; Returns</span> -->
+                          {% else %} Not signed in. 
+                          {% endif %}
+                        </div>
+                      <!-- </a> -->
+                    </li>
+                    
+                    {% if user.is_authenticated %}
+                  <li class="">
+                    <a href="#">
+                      <div class="button-t">
+                        <span>Advanced Search</span>
+                      </div>
+                    </a>
+                  </li>
+
+                  <li class="">
+                    <a href="{% url 'auctions:logout' %}">
+                      <div class="button-t">
+                        <span>Log out</span>
+                      </div>
+                    </a>
+                  </li>
+
+                  {% else %}
+                  
+                  <li class="">
+                    <a href="{% url 'auctions:login' %}">
+                      <div class="button-t">
+                        <span>Log in</span>
+                      </div>
+                    </a>
+                  </li>
+                  <li class="last">
+                    <a href="{% url 'auctions:register' %}">
+                      <div class="button-t">
+                        <span>Create an Account</span>
+                      </div>
+                    </a>
+                  </li>
+                  {% endif %}
+
+                </ul>
+              </div>
+              <div class="header-right">
+                <ul class="follow_icon">
+                  <!-- <li><a href="#"><img src="{% static '/auctions/images/icon.png' %}" alt=""/></a></li> -->
+                  <!-- <li><a href="#"><img src="{% static '/auctions/images/icon1.png' %}" alt=""/></a></li> -->
+                  <!-- <li><a href="#"><img src="{% static '/auctions/images/icon2.png' %}" alt=""/></a></li> -->
+                  <!-- <li><a href="#"><img src="{% static '/auctions/images/icon3.png' %}" alt=""/></a></li> -->
+                </ul>
+              </div><div class="clear"></div> 
+              <div class="header-bot">
+                <div class="logo">
+                  <a href="{% url 'auctions:index' %}">
+                    <img src="{% static '/auctions/images/logo.png' %}" alt=""/>
+                  </a>
+                </div>
+                <div class="search">
+                    <!-- <input type="text" class="textbox" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}">
+                    <button class="gray-button"><span>Search</span></button> -->
+                </div>
+              <div class="clear"></div> 
+            </div>		
+           </div><!-- close class="header" -->
+
+           <div class="menu"> 	
+              <div class="top-nav"> 
+                  <ul>
+                    <!-- <li class="active"><a href="{% url 'auctions:index' %}">Home</a></li> -->
+                    <li class=""><a href="{% url 'auctions:index' %}">Home</a></li>
+                    <li><a href="{% url 'auctions:about_publisher' %}">About</a></li>
+                    {% if user.is_authenticated %}
+                    <li><a href="{% url 'auctions:product_create' %}">Create Product</a></li>
+                    {% endif %}
+                    <!-- <li><a href="new.html">New</a></li> -->
+                    <!-- <li><a href="contact.html">Contact</a></li> -->
+                  </ul>
+                  <div class="clear"></div> 
+                </div>
+           </div>
+
+            <div class="banner-top">
+              <div class="header-bottom">
+
+                {% block body %} {% endblock %}
+
+
+                <div class="header-para">
+                  <div class="categories">
+                      <div class="list-categories">
+                        {% for c in categories %}
+                          <div class="first-list">
+                            <div class="div_2">
+                              <a href="{{ c.get_absolute_url }}">{{ c.name | title }}</a>
+                            </div>
+                            <div class="div_img">
+                              <!-- <img src="images/car1.jpg" alt="Cars" title="Cars" width="60" height="39"> -->
+                            </div>
+                            <div class="clear"></div>
+                          </div>
+                        {% endfor %}
+                      </div>
+                      <div class="box"> 
+                        <!--
+                            <div class="box-heading"><h1><a href="#">Cart:&nbsp;</a></h1></div>
+                            <div class="box-content">
+                            Now in your cart&nbsp;<strong> 0 items</strong>
+                            </div>	
+                            -->
+                      </div>
+                      <div class="box-title">
+                        <h1><span class="title-icon"></span><a href="{% url 'auctions:index' %}">Available Products</a></h1>
+                      </div>
+                      <div class="section group example">
+                          <div class="col_1_of_2 span_1_of_2">
+                            <img src="{% static '/auctions/images/pic21.jpg' %}" alt=""/>
+                            <img src="{% static '/auctions/images/pic24.jpg' %}" alt=""/>
+                            <img src="{% static '/auctions/images/pic25.jpg' %}" alt=""/>
+                            <img src="{% static '/auctions/images/pic27.jpg' %}" alt=""/>
+                          </div>
+                          <div class="col_1_of_2 span_1_of_2">
+                            <img src="{% static '/auctions/images/pic22.jpg' %}" alt=""/>
+                              <img src="{% static '/auctions/images/pic23.jpg' %}" alt=""/>
+                              <img src="{% static '/auctions/images/pic26.jpg' %}" alt=""/>
+                              <img src="{% static '/auctions/images/pic28.jpg' %}" alt=""/>
+                          </div>
+                          <div class="clear"></div>
+                        </div>
+                      <div class="clear"></div>
+                  </div>
+            
+                </div><!-- close of class="header-para" -->
+
+                  <div class="clear"></div>
+                  <div class="footer-bottom">
+                    <div class="copy">
+                      <p>&copy 2022 Automobile Auction . All rights Reserved | Powered By: <a href="#">Cascarr Ihesie</a></p>
+                    </div>
+                  </div><!-- close class="footer-bottom" -->
+
+              </div>
+            </div>
+          </div><!-- close class="total" -->
+        </div>
+      </div>
+    </div>
+
+
+    <!-----------------------------------break from here--------------------------------------------------->
+
+    <script src="{% static 'jquery/dist/jquery.js' %}"></script>
+    <script src="{% static 'auctions/js/main.js' %}"></script>
+    <script src="{% static 'auctions/js/script.js' %}"></script>
+    <!-- <script src="js/script.js" type="text/javascript"></script> -->
+  </body>
+</html>
