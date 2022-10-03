@@ -7,63 +7,65 @@
 
     <div id="slideshow">
         <ul class="slides">
-            <li><a href="details.html"><canvas ></canvas><img src="{% static '/auctions/images/banner4.jpg' %}" alt="Marsa Alam underawter close up" ></a></li>
-            <li><a href="details.html"><canvas></canvas><img src="{% static '/auctions/images/banner2.jpg' %}" alt="Turrimetta Beach - Dawn" ></a></li>
-            <li><a href="details.html"><canvas></canvas><img src="{% static '/auctions/images/banner3.jpg' %}" alt="Power Station" ></a></li>
-            <li><a href="details.html"><canvas></canvas><img src="{% static '/auctions/images/banner1.jpg' %}" alt="Colors of Nature" ></a></li>
+            <li><canvas ></canvas><img src="{% static '/auctions/images/banner4.jpg' %}" alt="Marsa Alam underawter close up" ></li>
+            <!-- <li><a href="details.html"><canvas></canvas><img src="{% static '/auctions/images/banner2.jpg' %}" alt="Turrimetta Beach - Dawn" ></a></li> -->
+            <!-- <li><a href="details.html"><canvas></canvas><img src="{% static '/auctions/images/banner3.jpg' %}" alt="Power Station" ></a></li> -->
+            <!-- <li><a href="details.html"><canvas></canvas><img src="{% static '/auctions/images/banner1.jpg' %}" alt="Colors of Nature" ></a></li> -->
         </ul>
         <span class="arrow previous"></span>
         <span class="arrow next"></span>
     </div><!-- close of id="slideshow" -->
 
     <div class="content-wrapper">
-
-    
-
-    <div class="content-top">
-      <div class="box_wrapper"><h1>Products on Auction</h1>
-    </div>
-   <div class="text"> 
-    {% for active in actives %}
-    <div class="grid_1_of_3 images_1_of_3">
-      <div class="grid_1">
-        
-        <a href="{{ active.get_absolute_url }}"><img src="{{ active.image.url }}" title="continue reading" alt=""></a>
-          <div class="grid_desc">
-            <p class="title">{{ active.title }}</p>
-            <p class="title1">{{ active.description }}</p>
-               <div class="price" style="height: 19px;">
-                  <span class="reducedfrom">${{ active.starting_bid }}</span>
-                    <!-- <span class="actual">$12.00</span> -->
-              </div>
-              <div class="cart-button">
-                <div class="cart">
-                  <!--
-                  <a href="#"><img src="{% static '/auctions/images/cart.png' %}" alt=""/></a>
-                  -->
-                </div>
-                <button class="button">
-                  <a href="{{ active.get_absolute_url }}" >
-                    <span >Details</span>
-                  </a>
-                </button>
-              <div class="clear"></div>
-            </div>
+      <div class="content-top">
+          <div class="box_wrapper">
+            <h1>Products on Auction</h1>
           </div>
-          
-      </div><!-- close of class="grid_1" -->
-    <div class="clear"></div>
+        {% for active in actives %}
+            <div class="text"> 
+            
+                  <div class="grid_1_of_3 images_1_of_3">
+                    <div class="grid_1">
+                      
+                      <a href="{{ active.get_absolute_url }}"><img src="{{ active.image.url }}" title="continue reading" alt=""></a>
+                        <div class="grid_desc">
+                          <p class="title">{{ active.title }}</p>
+                          <p class="title1">{{ active.description }}</p>
+                            <div class="price" style="height: 19px;">
+                                <span class="reducedfrom">${{ active.starting_bid }}</span>
+                                  <!-- <span class="actual">$12.00</span> -->
+                            </div>
+                            <div class="cart-button">
+                              <div class="cart">
+                                <!--
+                                <a href="#"><img src="{% static '/auctions/images/cart.png' %}" alt=""/></a>
+                                -->
+                              </div>
+                              <button class="button">
+                                <a href="{{ active.get_absolute_url }}" >
+                                  <span >Details</span>
+                                </a>
+                              </button>
+                              <div class="clear"></div>
+                            </div>
+                        </div>
+                        
+                    </div><!-- close of class="grid_1" -->
+                  <div class="clear"></div>
+                </div><!-- close of class="grid_1_of_3 images_1_of_3 -->
+              
+            </div><!-- close of class="text" -->
+        {% endfor %}
+     </div>
+
+
+
+
+
+    </div> 
+    <!-- close of class="content-wrapper" -->
+
   </div>
-  {% endfor %}
-      
-      
-    </div>
-</div>
-
-</div><!-- close of class="content-wrapper" -->
-
-</div><!-- close of class="header_bottom_right_images" -->
-
-
-    
+  <!-- close of class="header_bottom_right_images" -->
+  
 {% endblock %}

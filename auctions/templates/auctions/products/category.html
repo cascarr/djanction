@@ -4,36 +4,11 @@
   <div id="slideshow">
     <ul class="slides">
       <li>
-        <a href="details.html"
-          ><canvas></canvas
+        <canvas></canvas
           ><img
             src="{% static '/auctions/images/banner4.jpg' %}"
             alt="Marsa Alam underawter close up"
-        /></a>
-      </li>
-      <li>
-        <a href="details.html"
-          ><canvas></canvas
-          ><img
-            src="{% static '/auctions/images/banner2.jpg' %}"
-            alt="Turrimetta Beach - Dawn"
-        /></a>
-      </li>
-      <li>
-        <a href="details.html"
-          ><canvas></canvas
-          ><img
-            src="{% static '/auctions/images/banner3.jpg' %}"
-            alt="Power Station"
-        /></a>
-      </li>
-      <li>
-        <a href="details.html"
-          ><canvas></canvas
-          ><img
-            src="{% static '/auctions/images/banner1.jpg' %}"
-            alt="Colors of Nature"
-        /></a>
+        />
       </li>
     </ul>
     <span class="arrow previous"></span>
@@ -44,8 +19,9 @@
   <div class="content-wrapper">
     <div class="content-top">
       <div class="box_wrapper"><h1>Products in {{ category.name }}</h1></div>
+      {% for product in products_in_this_category %}
       <div class="text">
-        {% for product in products_in_this_category %}
+        
         <div class="grid_1_of_3 images_1_of_3">
           <div class="grid_1">
             <a href="{{ product.get_absolute_url }}"
@@ -80,8 +56,9 @@
 
           <div class="clear"></div>
         </div>
-        {% endfor %}
+        
       </div>
+      {% endfor %}
     </div>
   </div>
   <!-- close of class="content-wrapper" -->
