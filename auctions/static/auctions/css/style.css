@@ -174,7 +174,8 @@ body{
 }
 /*--menu--*/
 .header-bottom {
-	background: url('../images/header-bottom-bg.png');
+	/* background: url('../images/header-bottom-bg.png'); */
+	background: url('../images/spacer.png');
 	background-repeat: repeat-x;
 	border-top: 6px solid #FFF;
 	border-bottom: 6px solid #FFF;
