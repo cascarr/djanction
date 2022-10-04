@@ -141,7 +141,8 @@ body{
 }
 .banner{
 	padding-bottom: 2%;
-	background: url(../images/banner-bottom.png) no-repeat center bottom;
+	/* background: url(../images/banner-bottom.png) no-repeat center bottom; */
+	background: url(../images/menu_line.gif) no-repeat center bottom;
 }
 .logo{
 	float:left;

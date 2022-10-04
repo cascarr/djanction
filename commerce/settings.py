@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["djanction-project.herokuapp.com"]
+ALLOWED_HOSTS = [".djanction-project.herokuapp.com", "localhost"]
 
 
 # Application definition
@@ -77,8 +77,14 @@ WSGI_APPLICATION = 'commerce.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+       # 'ENGINE': 'django.db.backends.sqlite3',
+       # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'djanctiondb',
+        'USER': 'adminuser',
+        'PASSWORD': 'clega2021',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
@@ -121,6 +127,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+import os
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
