@@ -9,13 +9,17 @@ from django.urls import reverse
 from .forms import *
 
 
-from .models import User, Category, Product, Comment, Bid
+from .models import User, Category, Product, Comment, Bid, Contactus
 
 
 class ProductCreate(CreateView):
     model = Product
     fields = ['category', 'created_by', 'title', 'image', 'description', 'starting_bid', 'is_active', 'slug']
     #
+
+class ContactCreate(CreateView):
+    model = Contactus
+    fields = ['name', 'email', 'mobile', 'subject']
 
 
 

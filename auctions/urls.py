@@ -7,6 +7,7 @@ app_name = 'auctions'
 urlpatterns = [
     path("", views.index, name="index"),
     path('publisher/about', views.about, name='about_publisher'),
+    path('contact/mail', views.ContactCreate.as_view(), name='contact_us'),
     path('product/create', views.ProductCreate.as_view(), name='product_create'),
     path("search/<slug:category_slug>/", views.category_list, name="category_list"),
     path("item/<slug:slug>/", views.product_detail, name="product_detail"),

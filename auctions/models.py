@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.urls import reverse
+from django.core.validators import RegexValidator
 
 
 class User(AbstractUser):
@@ -75,3 +76,21 @@ class Watchlist(models.Model):
 
     def __str__(self):
         return f"user:({self.user}), product:({self.product})"
+
+
+class Contactus(models.Model):
+    phone_regex = RegexValidator(regex=r'^\+\d{8,15}$', message='Phone number must be entered in the format: "+ 9999999999". Up to 15 digits is allowed.')
+    name = models.CharField(max_length=158)
+    email = models.EmailField()
+    mobile = models.CharField(validators=[phone_regex], max_length=16, unique=True)
+    subject = models.TextField()
+
+
+    class Meta:
+        verbose_name_plural = 'Contactus'
+
+    def get_absolute_url(self):
+        return reverse('auctions:index')
+
+    def __str__(self):
+        return self.name

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Category, Product, Bid, Comment, Watchlist
+from .models import Category, Product, Bid, Comment, Watchlist, Contactus
 
 # Register your models here.
 @admin.register(Category)
@@ -34,3 +34,4 @@ class CommentAdmin(admin.ModelAdmin):
 admin.site.register(Bid)
 admin.site.register(Comment)
 admin.site.register(Watchlist)
+admin.site.register(Contactus)

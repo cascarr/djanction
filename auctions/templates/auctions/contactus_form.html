@@ -1,0 +1,31 @@
+{% extends "auctions/layout.html" %}
+
+{% load static %}
+
+{% block body %}
+
+<div class="header_bottom_right_images">
+  <div class="about_wrapper">
+    <h1>Let us Know How We Can Serve You Better</h1>
+ </div>
+<div class="section group">
+<div class="col span_2_of_c">
+ <div class="contact-form">
+   <h3>Contact Us</h3>
+   <form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div>
+        {{ form.as_p }}
+    </div>
+    <div>
+      <span><input type="submit" value="Submit" /></span>
+ </div>
+  </form>
+ </div>
+ </div><div class="clear"></div>
+</div>
+</div>
+
+
+  
+{% endblock %}
