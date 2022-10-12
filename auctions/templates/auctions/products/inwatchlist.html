@@ -1,0 +1,67 @@
+{% extends "auctions/layout.html" %}
+{% load static %}
+
+{% block body %}
+<div class="header_bottom_right_images">
+  <div>
+    {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+        <li class="alert {{ message.tags }} alert-dismissible">
+          {{ message }}
+        </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+
+<div class="content-wrapper">
+    <div class="content-top">
+      <div class="box_wrapper">
+        <h1>Products in Watchlist</h1>
+      </div>
+      
+      {% for prod in my_products %}
+      <div class="text">
+        
+        <div class="grid_1_of_3 images_1_of_3">
+          <div class="grid_1">
+            <a href="{{ prod.get_absolute_url }}"
+              ><img
+                src="{{ prod.image.url }}"
+                title="continue reading"
+                alt=""
+            /></a>
+            <div class="grid_desc">
+              <p class="title">{{ prod.title }}</p>
+              <p class="title1">{{ prod.description }}</p>
+              <div class="price" style="height: 19px">
+                <span class="reducedfrom">${{ prod.starting_bid }}</span>
+                <!-- <span class="actual">$12.00</span> -->
+              </div>
+              <div class="cart-button">
+                <div class="cart">
+                  <!--
+                      <a href="#"><img src="{% static '/auctions/images/cart.png' %}" alt=""/></a>
+                    -->
+                </div>
+                
+                <div class="clear"></div>
+              </div>
+            </div>
+          </div>
+          <!-- close of class="grid_1" -->
+
+          <div class="clear"></div>
+        </div>
+        
+      </div>
+      {% endfor %}
+      
+      
+    </div>
+  </div>
+  <!-- close of class="content-wrapper" -->
+</div>
+<!-- close of class="header_bottom_right_images" -->
+{% endblock %}

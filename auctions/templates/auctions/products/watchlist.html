@@ -1,27 +1,27 @@
-{% extends "auctions/layout.html" %} 
-{% load static %} 
+{% extends "auctions/layout.html" %}
+{% load static %}
+
 {% block body %}
-
 <div class="header_bottom_right_images">
-  <div id="slideshow">
-    <ul class="slides">
-      <li>
-        <canvas></canvas
-          ><img
-            src="{% static '/auctions/images/banner4.jpg' %}"
-            alt="Marsa Alam underawter close up"
-        />
-      </li>
-    </ul>
-    <span class="arrow previous"></span>
-    <span class="arrow next"></span>
+  <div>
+    {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+        <li class="alert {{ message.tags }} alert-dismissible">
+          {{ message }}
+        </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
   </div>
-  <!-- close of id="slideshow" -->
 
-  <div class="content-wrapper">
+<div class="content-wrapper">
     <div class="content-top">
-      <div class="box_wrapper"><h1>Products in {{ category.name }}</h1></div>
-      {% for product in products_in_this_category %}
+      <div class="box_wrapper">
+        <h1>Added To Watchlist</h1>
+      </div>
+      
+      {% for product in product_added_to_watchlist %}
       <div class="text">
         
         <div class="grid_1_of_3 images_1_of_3">
@@ -45,11 +45,7 @@
                       <a href="#"><img src="{% static '/auctions/images/cart.png' %}" alt=""/></a>
                     -->
                 </div>
-                <button class="button">
-                  <a href="{{ product.get_absolute_url }}">
-                    <span>Details</span>
-                  </a>
-                </button>
+                
                 <div class="clear"></div>
               </div>
             </div>
@@ -61,10 +57,10 @@
         
       </div>
       {% endfor %}
+      
     </div>
   </div>
   <!-- close of class="content-wrapper" -->
 </div>
 <!-- close of class="header_bottom_right_images" -->
-
 {% endblock %}

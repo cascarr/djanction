@@ -13,7 +13,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = [
         'title', 'description', 'starting_bid',
         'created', 'updated', 'is_active',
-        'slug'
+        'slug', 'created_by'
         ]
 
     list_filter = ['is_active']

@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.urls import reverse
 from django.core.validators import RegexValidator
+from django.conf import settings 
 
 
 class User(AbstractUser):
@@ -31,9 +32,6 @@ class Product(models.Model):
     updated = models.DateField(auto_now=True)
     is_active = models.BooleanField(default=True)
     slug = models.SlugField(max_length=255)
-    #number_of_bids = models.IntegerField()
-    # winner = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True, related_name='auction_won')
-    winner = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, default=None, null=True, related_name='auction_won')
 
     class Meta:
         verbose_name_plural = 'Products'
@@ -71,11 +69,16 @@ class Comment(models.Model):
         return self.body
 
 class Watchlist(models.Model):
-    product = models.ManyToManyField(Product)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='product_watcher')
+    item = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="product", null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, name="user", null=True)
+
+
+    def get_absolute_url(self):
+        return reverse('auctions:my_watchlist')
+    
 
     def __str__(self):
-        return f"user:({self.user}), product:({self.product})"
+        return f"user:({self.user}), product:({self.item})"
 
 
 class Contactus(models.Model):
@@ -90,7 +93,7 @@ class Contactus(models.Model):
         verbose_name_plural = 'Contactus'
 
     def get_absolute_url(self):
-        return reverse('auctions:index')
+        return reverse('auctions:thankyou')
 
     def __str__(self):
         return self.name

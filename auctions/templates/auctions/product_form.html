@@ -12,14 +12,14 @@
  <div class="contact-form">
    <h3>Create Your Product</h3>
    <form action="" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <div>
-        {{ form.as_p }}
-    </div>
-    <div>
-      <span><input type="submit" value="Create Product" /></span>
- </div>
-  </form>
+      {% csrf_token %}
+      <div>
+          {{ form.as_p }}
+      </div>
+      <div>
+        <span><input type="submit" value="Create Product" /></span>
+      </div>
+   </form>
  </div>
  </div><div class="clear"></div>
 </div>

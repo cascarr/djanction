@@ -5,6 +5,18 @@
 {% block body %}
   <div class="header_bottom_right_images">
 
+    <div>
+      {% if messages %}
+        <ul class="messages">
+          {% for message in messages %}
+          <li class="{{ message.tags }}">
+            {{ message }}
+          </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+
     <div id="slideshow">
         <ul class="slides">
             <li><canvas ></canvas><img src="{% static '/auctions/images/banner4.jpg' %}" alt="Marsa Alam underawter close up" ></li>

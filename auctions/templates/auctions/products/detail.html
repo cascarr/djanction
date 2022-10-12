@@ -38,6 +38,12 @@
         <p>Category: <strong>{{ active.category }}</strong></p>
 
         {% if user.is_authenticated %}
+        <button class="button">
+          <a href="{% url 'auctions:watchlist_add' active.id %}" >
+            <span >Add to Watchlist</span>
+          </a>
+        </button>
+
         <p>
 					<!-- <input type="submit" value="Add to Watchlist"> -->
 				</p>

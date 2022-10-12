@@ -98,11 +98,11 @@
                   <ul>
                     <!-- <li class="active"><a href="{% url 'auctions:index' %}">Home</a></li> -->
                     <li class=""><a href="{% url 'auctions:index' %}">Home</a></li>
-                    <li><a href="{% url 'auctions:about_publisher' %}">About</a></li>
                     {% if user.is_authenticated %}
+                    <li><a href="{% url 'auctions:my_watchlist' %}">Watchlist</a></li>
                     <li><a href="{% url 'auctions:product_create' %}">Create Product</a></li>
                     {% endif %}
-                    <!-- <li><a href="new.html">New</a></li> -->
+                    <li><a href="{% url 'auctions:about_publisher' %}">About</a></li>
                     <li><a href="{% url 'auctions:contact_us' %}">Contact</a></li>
                   </ul>
                   <div class="clear"></div> 
@@ -164,7 +164,9 @@
                   <div class="clear"></div>
                   <div class="footer-bottom">
                     <div class="copy">
-                      <p>&copy 2022 Automobile Auction . All rights Reserved | Powered By: <a href="#">Cascarr Ihesie</a></p>
+                      <p>&copy 2022 Automobile Auction . All rights Reserved | Powered By: 
+                        <a href="https://www.linkedin.com/in/cascarr-ihesie-182295a0/">Cascarr Ihesie</a>
+                      </p>
                     </div>
                   </div><!-- close class="footer-bottom" -->
 
@@ -181,6 +183,7 @@
     <script src="{% static 'jquery/dist/jquery.js' %}"></script>
     <script src="{% static 'auctions/js/main.js' %}"></script>
     <script src="{% static 'auctions/js/script.js' %}"></script>
+    <script src="{% static 'auctions/js/app.js' %}"></script>
     <!-- <script src="js/script.js" type="text/javascript"></script> -->
   </body>
 </html>

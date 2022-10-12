@@ -2,6 +2,8 @@ import json
 import re
 from django.views.generic.edit import CreateView, UpdateView, DeleteView 
 from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
@@ -12,14 +14,23 @@ from .forms import *
 from .models import User, Category, Product, Comment, Bid, Contactus
 
 
-class ProductCreate(CreateView):
+class ProductCreate(LoginRequiredMixin, CreateView):
     model = Product
-    fields = ['category', 'created_by', 'title', 'image', 'description', 'starting_bid', 'is_active', 'slug']
+    fields = ['category', 'title', 'image', 'description', 'starting_bid', 'is_active', 'slug']
     #
+
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        return super().form_valid(form)
+
 
 class ContactCreate(CreateView):
     model = Contactus
     fields = ['name', 'email', 'mobile', 'subject']
+
+
+def thankyou(request):
+    return render(request, 'auctions/products/thankyou.html')
 
 
 
@@ -30,8 +41,10 @@ def index(request):
     }
     return render(request, "auctions/index.html", context)
 
+
 def about(request):
     return render(request, "auctions/about.html")
+
 
 def categories(request):
 
@@ -43,13 +56,12 @@ def categories(request):
 
     return context 
 
+
+
 def product_detail(request, slug):
 
     product = get_object_or_404(Product, slug=slug, is_active=True)
-
     #similar_products = Product.objects.filter(category=category)
-
-
     comments_per_product = product.commented_product.filter(active=True)
 
     form = CommentForm()
@@ -58,7 +70,6 @@ def product_detail(request, slug):
 
     context = {
         'active': product,
-        #'all_comments': all_comments,
         'all_comments': comments_per_product,
         'form': form,
         'bid_form': bid_form,
@@ -127,9 +138,6 @@ def make_bid(request, slug):
         )
 
 
-        
-
-
 def give_comment(request, slug):
     #pass
     product = get_object_or_404(Product, slug=slug)
@@ -157,17 +165,48 @@ def give_comment(request, slug):
         )
 
 
-def add_to_watchlist(request, p_id):
-    the_product = get_object_or_404(Product, pk=p_id)
+def watchlist_add(request, slug):
+    #pass
+    product = get_object_or_404(Product, pk=slug)
 
-    # check the presence of the item in the watchlist
-    if Watchlist.objects.filter(user=request.user, product=product_id).exists():
-        messages.add_message(request, messages.ERROR, "You already have it available in your watchlist.")
+    unique_user = request.user
+    item_in_watchlist = Watchlist.objects.filter(user=unique_user, item_id=slug)
+    product_added_to_watchlist = Product.objects.filter(title=product, is_active=True)
+
+    context = {
+            'product_added_to_watchlist': product_added_to_watchlist
+        }
+
+    if not item_in_watchlist.exists():
+        obj, created = Watchlist.objects.get_or_create(user=unique_user, item_id=slug)
+        messages.success(request, 'The Item has been added to your Watchlist!')
+        return render(request, 'auctions/products/watchlist.html', context)
+    else:
+        print("Item already in Watchlist!")
+        messages.warning(request,'Item already exists in the Watchlist!')
         return HttpResponseRedirect(reverse("auctions:index"))
+    
+    
+def my_watchlist(request):
 
-    # Get the user watchlist or create it if it doesn't exists
-    #use_list, created = Watchlist.obect
+    unique_user = request.user
+    see_watchlist = Watchlist.objects.filter(user=unique_user)
+    
+    my_products = [] # empty list 
 
+    for watchlist in see_watchlist:
+        my_products.append(watchlist.item)
+
+    for each_prod in my_products: # for each of those items in the list
+        if each_prod in Product.objects.all(): # check if the item exists in the general Product table
+            pass
+
+
+    context = {
+        'my_products': my_products
+    }
+
+    return render(request, 'auctions/products/inwatchlist.html', context)
 
 
 def login_view(request):
